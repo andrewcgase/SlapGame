@@ -11,9 +11,15 @@
 <header>
 	<h1 id="health">100</h1>
 	<h1 id="hits"> 0 </h1>
+	
 </header>
 
 	<div class="stage">
+		<div class="player" id='items'>
+			<button onclick='giveItem(dummy,items.shield)'>Shield</button>
+			<button onclick='giveItem(dummy,items.weakness)'>T-Shirt</button>
+			<button onclick='giveItem(dummy,items.armor)'>ChainMail</button>
+		</div>
 		<div class="player">
 			<button onclick='slap(dummy)'>Slap</button>
 			<button onclick='punch(dummy)'>Punch</button>

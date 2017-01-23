@@ -1,5 +1,6 @@
 
 
+
 function Target(name,health,hits,items) {
     this.name = name; 
     this.health = health;
@@ -7,26 +8,37 @@ function Target(name,health,hits,items) {
     this.items = [items];
 }
 
+
+
 function Item(name,value) {
     this.name = name;
     this.value = value;
 }
 
+var items = {
+    none: new Item('None',1),
+    shield: new Item('Shield', 0.3),
+    weakness: new Item('T-shirt', 5),
+    armor: new Item('Chain-mail', 0.5)
+}
+
+var dummy = new Target('strawman',95,0,items.none);
+
 function slap(target) {
-    target.health = target.health - 1 * addMods(target)
+    target.health = (target.health - 1 * addMods(target)).toFixed(1)
     hit(target)
     update(target);
 }
 
 function punch(target) {
-    target.health = target.health - 5 * addMods(target)
+    target.health = (target.health - 5 * addMods(target)).toFixed(1)
     hit(target)
     update(target);
     
 }
 
 function kick(target) {
-    target.health = (target.health - 10 * addMods(target)).toFixed(3)
+    target.health = (target.health - 10 * addMods(target)).toFixed(1)
     hit(target)
     update(target);
     
@@ -58,14 +70,11 @@ function addMods(target){
     return combo
 }
 
-
-
-
-var items = {
-    shield: new Item('Shield', 0.3),
-    sword: new Item('Battle Bikini', 5),
-    potion: new Item('Uni-brow', 1)
+function giveItem(target,item){
+     target.items[0] = item
+     
 }
 
 
-var dummy = new Target('strawman',95,0,items.shield);
+
+

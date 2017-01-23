@@ -1,6 +1,6 @@
 ##The Slap Object Game - Part 2
 
-###Step 1 - The Target Object x
+###Step 1 - The Target Object
 So at this point you have a mostly functional slap game, however its time to refactor and clean up a few problems that could exist. First of all you have a global variable called `health` which is currently being used to control the state of the application. 
 
 To illustrate the problem with a global variable imagine for a moment you are playing an old arcade fighting game. Chances are you have at least two players. Now with just two players it might be easy enough to create two global variable and functions for `player1` and `player2` but what if we are actually playing a game like 
@@ -55,7 +55,7 @@ You could of course create targets using an object literal `{}` but it might mak
 
 Now work on converting your global variables to properties that can be used through a `Target constructor`. This will make it so you have to update your code in your `update` function to something like `target.health`
 
-###Step 2 - Items x
+###Step 2 - Items
 - It's now time to add items to our game. Items are objects that will be created using a constructor.
   the items are responsible for reducing or increasing the damage done to the target on hit.
 1. Create an Item constructor that takes in the following "options": (name, modifier, description).
@@ -70,7 +70,7 @@ var Obj = function(option1, option2, option3){
 }
 ```
  
-###Step 3 - Create the items x
+###Step 3 - Create the items
 - Since our game will have multiple items, we need to find an easy way to access them. 
  We can use an array to store a collection of objects. However, arrays are not always the easiest to use, because they require us
  to loop over the entire collection when we are looking for a specific item. What if we instead, create an object that uses the name of the item as a property (for more on this topic, review the dictionaries cheetsheet)?
@@ -87,7 +87,7 @@ var items = {
  - We can now easily reference the shield item by calling items.shield.
  - What would items.shield.name return?
  
-###Step 4 - Give some items to our target   x
+###Step 4 - Give some items to our target
 - We are using an object to store the master list of items in our game. However, we need to be able to give our 
   target items. In this case, we need to use an array, because it may be possible for the user to have multiples of the same item.
 1. Create an array property named items on the target object.
@@ -99,7 +99,7 @@ var items = {
 
 3. Keep in mind that the \[items] object that is global, is completly different than the \[items] array on the target.
  
-###Step 5 - REDUCE THE DAMAGE!... almost X
+###Step 5 - REDUCE THE DAMAGE!... almost
 - How are you at math?
 1. Create a function on the target object called, addMods().
 2. Using a "for loop", calculate the combined value of modifiers in the player.items array.
