@@ -16,15 +16,15 @@
 
 	<div class="stage">
 		<div class="player" id='items'>
-			<button onclick='giveItem(dummy,items.shield)'>Shield</button>
-			<button onclick='giveItem(dummy,items.weakness)'>T-Shirt</button>
-			<button onclick='giveItem(dummy,items.armor)'>ChainMail</button>
+			<button onclick='ctrl.giveItem("shield")'>Shield</button>
+			<button onclick='ctrl.giveItem("weakness")'>T-Shirt</button>
+			<button onclick='ctrl.giveItem("armor")'>ChainMail</button>
 		</div>
 		<div class="player">
-			<button onclick='slap(dummy)'>Slap</button>
-			<button onclick='punch(dummy)'>Punch</button>
-			<button onclick='kick(dummy)'>Kick</button>
-			<button onclick='hadouken()'>Hadouken</button>
+			<button onclick='ctrl.attack("slap")'>Slap</button>
+			<button onclick='ctrl.attack("punch")'>Punch</button>
+			<button onclick='ctrl.attack("kick")'>Kick</button>
+		
 				
 		</div>
 	</div>

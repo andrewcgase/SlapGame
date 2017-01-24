@@ -1,79 +1,95 @@
+function GameService() {
 
+    var target = new Target('strawman', 100, 1, 5, 10);
+    var items = {
+        none: new Item('None', 1),
+        shield: new Item('Shield', 0.3),
+        weakness: new Item('T-shirt', 5),
+        armor: new Item('Chain-mail', 0.5)
+    }
 
+    function Target(name, health, slap, punch, kick) {
+        this.name = name;
+        this.health = health;
+        this.attacks = {
+            'slap': slap,
+            'punch': punch,
+            'kick': kick
+        };
+        this.item = []
+        this.hits = 0
+    };
 
-function Target(name,health,hits,items) {
-    this.name = name; 
-    this.health = health;
-    this.hits = hits;
-    this.items = [items];
-}
+    this.getHealth = function () {
+        return target.health
+    }
 
+    this.getHits = function () {
+        return target.hits
+    }
 
+    this.giveItem = function (type) {
+        target.item.push(items[type])
+    }
 
-function Item(name,value) {
-    this.name = name;
-    this.value = value;
-}
+    function Item(name, modifier) {
+        this.name = name;
+        this.modifier = modifier;
+    };
 
-var items = {
-    none: new Item('None',1),
-    shield: new Item('Shield', 0.3),
-    weakness: new Item('T-shirt', 5),
-    armor: new Item('Chain-mail', 0.5)
-}
+    this.attack = function (type) {
+        target.health -= target.attacks[type] * this.addMods()
+        target.hits += 1
+        this.knockOut()
+    }
 
-var dummy = new Target('strawman',95,0,items.none);
+    this.knockOut = function () {
+        if (target.health < 0) {
+            target.health = 0
+        }
+    }
 
-function slap(target) {
-    target.health = (target.health - 1 * addMods(target)).toFixed(1)
-    hit(target)
-    update(target);
-}
+    this.addMods = function () {
+        var combo = 1
+                console.log(target.item)
+        if (target.item.length == 0) {
+            return 1
+        } else if (target.item.length > 0) {
+            for (i = 0; i < target.item.length; i++) {
+                combo *= target.item[i].modifier
+            }
+        }
+        return combo
 
-function punch(target) {
-    target.health = (target.health - 5 * addMods(target)).toFixed(1)
-    hit(target)
-    update(target);
-    
-}
-
-function kick(target) {
-    target.health = (target.health - 10 * addMods(target)).toFixed(1)
-    hit(target)
-    update(target);
-    
-}
-
-function hit(target){
-    target.hits = target.hits + 1
-}
-
-
-
-function update(target) {
-    knockOut(target)
-    document.getElementById('hits').innerText = target.hits
-    document.getElementById('health').innerText = target.health
-}
-
-function knockOut(target){
-    if(target.health < 0){
-        target.health = 0
     }
 }
 
-function addMods(target){
-    var combo = 0
-    for(i = 0; i < target.items.length; i++){
-        combo += target.items[i].value
+function GameController() {
+    var dataStore = new GameService()
+
+    this.attack = function (type) {
+        dataStore.attack(type)
+        update()
     }
-    return combo
+
+    this.giveItem = function (type) {
+        dataStore.giveItem(type)
+        update()
+    }
+
+    function update() {
+
+        document.getElementById('health').innerText = dataStore.getHealth().toFixed(1)
+        document.getElementById('hits').innerText = dataStore.getHits().toFixed(1)
+    }
+
+
 }
 
-function giveItem(target,item){
-     target.items[0] = item
-     
-}
+var ctrl = new GameController()
+
+
+
 
 
 
